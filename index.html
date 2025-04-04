@@ -9,6 +9,7 @@
             margin: 0;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             background: linear-gradient(90deg, 
@@ -20,8 +21,31 @@
             0% { background-position: 0% 50%; }
             100% { background-position: 100% 50%; }
         }
+        #counter {
+            position: absolute;
+            bottom: 10px;
+            font-size: 20px;
+            color: white;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
+    <p id="counter">載入中...</p>
+
+    <script>
+        fetch("https://api.countapi.xyz/hit/9ay/visits")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("counter").textContent = `訪問次數: ${data.value}`;
+            })
+            .catch(error => {
+                document.getElementById("counter").textContent = "計數器無法加載";
+            });
+    </script>
 </body>
 </html>
+
